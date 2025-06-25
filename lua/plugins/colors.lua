@@ -7,9 +7,9 @@ return {
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
 		"catppuccin/nvim",
 		name = "catppuccin",
-		priority = 1000, -- Make sure to load this before all the other start plugins.
-		init = function()
-			vim.cmd.colorscheme 'catppuccin-macchiato'
+		lazy = false,
+		config = function()
+			vim.cmd.colorscheme("catppuccin-macchiato")
 		end,
-	}
+	},
 }

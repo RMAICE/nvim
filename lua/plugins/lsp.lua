@@ -1,91 +1,37 @@
 return {
 	{
-		-- Autocompletion
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
-			-- Snippet Engine & its associated nvim-cmp source
-			{
-				"L3MON4D3/LuaSnip",
-				build = (function()
-					-- Build Step is needed for regex support in snippets.
-					-- This step is not supported in many windows environments.
-					-- Remove the below condition to re-enable on windows.
-					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-						return
-					end
-					return "make install_jsregexp"
-				end)(),
-			},
-			"saadparwaiz1/cmp_luasnip",
-
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
-		},
-		config = function()
-			-- See `:help cmp`
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-			luasnip.config.setup({})
-
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						luasnip.lsp_expand(args.body)
-					end,
-				},
-				completion = { completeopt = "menu,menuone,noinsert" },
-				mapping = cmp.mapping.preset.insert({
-					["<C-n>"] = cmp.mapping.select_next_item(),
-					["<C-p>"] = cmp.mapping.select_prev_item(),
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-y>"] = cmp.mapping.confirm({ select = true }),
-					["<C-Space>"] = cmp.mapping.complete({}),
-					["<C-l>"] = cmp.mapping(function()
-						if luasnip.expand_or_locally_jumpable() then
-							luasnip.expand_or_jump()
-						end
-					end, { "i", "s" }),
-					["<C-h>"] = cmp.mapping(function()
-						if luasnip.locally_jumpable(-1) then
-							luasnip.jump(-1)
-						end
-					end, { "i", "s" }),
-				}),
-				sources = {
-					{ name = "nvim_lsp" },
-					-- { name = "luasnip" },
-					{ name = "path" },
-				},
-			})
-		end,
-	},
-
-	{
+		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+		-- used for completion, annotations and signatures of Neovim apis
 		"folke/lazydev.nvim",
 		ft = "lua",
 		opts = {
 			library = {
+				-- Load luvit types when the `vim.uv` word is found
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 			},
 		},
 	},
 
 	{
+		-- Main LSP Configuration
 		"neovim/nvim-lspconfig",
 		dependencies = {
+			-- Automatically install LSPs and related tools to stdpath for Neovim
+			-- Mason must be loaded before its dependents so we need to set it up here.
+			-- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
 			{ "mason-org/mason.nvim", opts = {} },
 			"mason-org/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
+			-- Useful status updates for LSP.
 			{ "j-hui/fidget.nvim", opts = {} },
 
+			-- Allows extra capabilities provided by blink.cmp
 			"saghen/blink.cmp",
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 				callback = function(event)
 					local map = function(keys, func, desc, mode)
 						mode = mode or "n"
@@ -155,22 +101,32 @@ return {
 				end,
 			})
 
-			vim.lsp.config("lua_ls", {
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
+			-- Diagnostic Config
+			-- See :help vim.diagnostic.Opts
+			vim.diagnostic.config({
+				severity_sort = true,
+				float = { border = "rounded", source = "if_many" },
+				underline = { severity = vim.diagnostic.severity.ERROR },
+				signs = vim.g.have_nerd_font and {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "󰅚 ",
+						[vim.diagnostic.severity.WARN] = "󰀪 ",
+						[vim.diagnostic.severity.INFO] = "󰋽 ",
+						[vim.diagnostic.severity.HINT] = "󰌶 ",
 					},
-				},
-			})
-
-			vim.lsp.config("html", {
-				filetypes = { "html", "nunjucks" },
-				settings = {
-					format = {
-						enable = false,
-					},
+				} or {},
+				virtual_text = {
+					source = "if_many",
+					spacing = 2,
+					format = function(diagnostic)
+						local diagnostic_message = {
+							[vim.diagnostic.severity.ERROR] = diagnostic.message,
+							[vim.diagnostic.severity.WARN] = diagnostic.message,
+							[vim.diagnostic.severity.INFO] = diagnostic.message,
+							[vim.diagnostic.severity.HINT] = diagnostic.message,
+						}
+						return diagnostic_message[diagnostic.severity]
+					end,
 				},
 			})
 
@@ -182,23 +138,15 @@ return {
 					end
 
 					base_on_attach(client, bufnr)
+
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						buffer = bufnr,
 						command = "LspEslintFixAll",
 					})
 				end,
 			})
-		end,
-	},
 
-	{
-		"mason-org/mason-lspconfig.nvim",
-		opts = {
-			ensure_installed = { "cspell", "djlint", "lua_ls" },
-		},
-		dependencies = {
-			{ "mason-org/mason.nvim", opts = {} },
-			"neovim/nvim-lspconfig",
-		},
+			vim.lsp.enable({ "eslint", "ts_ls", "lua_ls", "gopls" })
+		end,
 	},
 }
