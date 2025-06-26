@@ -36,4 +36,10 @@ return {
 			},
 		},
 	},
+	{
+		"ivanesmantovich/xkbswitch.nvim",
+		init = function()
+			require("xkbswitch").setup()
+		end,
+	},
 }
