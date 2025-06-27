@@ -21,10 +21,10 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			nunjucks = { "djlint" },
-			javascript = { lsp_format = "never" },
-			javascriptreact = { lsp_format = "never" },
-			typescript = { lsp_format = "never" },
-			typescriptreact = { lsp_format = "never" },
+			javascript = { "ts_ls", "eslint" },
+			javascriptreact = { "ts_ls", "eslint" },
+			typescript = { "ts_ls", "eslint" },
+			typescriptreact = { "ts_ls", "eslint" },
 		},
 		-- Set default options
 		default_format_opts = {
