@@ -11,5 +11,6 @@ return {
 		config = function()
 			vim.cmd.colorscheme("catppuccin-macchiato")
 		end,
+		tag = "v1.11.0",
 	},
 }
