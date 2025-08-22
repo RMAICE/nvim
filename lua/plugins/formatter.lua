@@ -19,6 +19,7 @@ return {
 	opts = {
 		-- Define your formatters
 		formatters_by_ft = {
+			html = { "prettier" },
 			lua = { "stylua" },
 			nunjucks = { "djlint" },
 			javascript = { "ts_ls", "eslint" },
