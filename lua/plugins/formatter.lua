@@ -22,10 +22,10 @@ return {
 			html = { "prettier" },
 			lua = { "stylua" },
 			nunjucks = { "djlint" },
-			javascript = { "ts_ls", "eslint" },
-			javascriptreact = { "ts_ls", "eslint" },
-			typescript = { "ts_ls", "eslint" },
-			typescriptreact = { "ts_ls", "eslint" },
+			javascript = { "prettier", "eslint_d", lsp_format = "never" },
+			javascriptreact = { "prettier", "eslint_d", lsp_format = "never" },
+			typescript = { "prettier", "eslint_d", lsp_format = "never" },
+			typescriptreact = { "prettier", "eslint_d", lsp_format = "never" },
 		},
 		-- Set default options
 		default_format_opts = {
