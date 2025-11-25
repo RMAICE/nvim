@@ -35,6 +35,9 @@ return {
 						"prettier",
 						"stylua",
 						"typescript-language-server",
+						"graphql-language-service-cli",
+						"tailwindcss-language-server",
+						"bash-language-server",
 					},
 				},
 			},
@@ -146,7 +149,19 @@ return {
 				},
 			})
 
-			vim.lsp.enable({ "eslint", "ts_ls", "lua_ls", "gopls" })
+			vim.lsp.enable({ "eslint", "ts_ls", "lua_ls", "gopls", "graphql", "bashls" })
 		end,
 	},
+
+	-- {
+	-- 	"luckasRanarison/tailwind-tools.nvim",
+	-- 	name = "tailwind-tools",
+	-- 	build = ":UpdateRemotePlugins",
+	-- 	dependencies = {
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		"nvim-telescope/telescope.nvim", -- optional
+	-- 		"neovim/nvim-lspconfig", -- optional
+	-- 	},
+	-- 	opts = {}, -- your configuration
+	-- },
 }

@@ -1,4 +1,8 @@
 return {
+	{
+		"supermaven-inc/supermaven-nvim",
+		opts = {},
+	},
 	{ -- Autocompletion
 		"saghen/blink.cmp",
 		event = "VimEnter",

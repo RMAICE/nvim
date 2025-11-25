@@ -42,6 +42,7 @@ vim.opt.guicursor:append("a:blinkwait175-blinkoff150-blinkon175")
 
 vim.filetype.add({
 	extension = {
+		jsonl = "json",
 		njk = "nunjucks",
 	},
 	pattern = {
