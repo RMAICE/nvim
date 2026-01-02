@@ -23,10 +23,10 @@ return {
 			sh = { "beautysh" },
 			lua = { "stylua" },
 			nunjucks = { "djlint" },
-			javascript = { "prettier", "eslint_d", lsp_format = "never" },
-			javascriptreact = { "prettier", "eslint_d", lsp_format = "never" },
-			typescript = { "prettier", "eslint_d", lsp_format = "never" },
-			typescriptreact = { "prettier", "eslint_d", lsp_format = "never" },
+			javascript = { "prettier", lsp_format = "never" },
+			javascriptreact = { "prettier", lsp_format = "never" },
+			typescript = { "prettier", lsp_format = "never" },
+			typescriptreact = { "prettier", lsp_format = "never" },
 		},
 		-- Set default options
 		default_format_opts = {
