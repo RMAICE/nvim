@@ -5,12 +5,9 @@ return {
 		-- change the command in the config to whatever the name of that colorscheme is.
 		--
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-		"catppuccin/nvim",
-		name = "catppuccin",
-		lazy = false,
+		"EdenEast/nightfox.nvim",
 		config = function()
-			vim.cmd.colorscheme("catppuccin-macchiato")
+			vim.cmd("colorscheme carbonfox")
 		end,
-		tag = "v1.11.0",
 	},
 }

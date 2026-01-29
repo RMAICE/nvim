@@ -26,6 +26,7 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
+			theme = "carbonfox",
 			sections = {
 				lualine_a = { "mode" },
 				lualine_b = { "branch" },
@@ -36,10 +37,10 @@ return {
 			},
 		},
 	},
-	-- {
-	-- 	"ivanesmantovich/xkbswitch.nvim",
-	-- 	init = function()
-	-- 		require("xkbswitch").setup()
-	-- 	end,
-	-- },
+	{
+		"ivanesmantovich/xkbswitch.nvim",
+		init = function()
+			require("xkbswitch").setup()
+		end,
+	},
 }

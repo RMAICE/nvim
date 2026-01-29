@@ -2,8 +2,8 @@ return {
 	{
 		-- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
+		version = "*",
 		event = "VimEnter",
-		branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{
@@ -33,8 +33,16 @@ return {
 					},
 				},
 				defaults = {
-					layout_strategy = "vertical",
-					layout_config = { height = 0.95 },
+					layout_strategy = "horizontal",
+					layout_config = {
+						height = 0.95,
+						width = 0.95,
+						preview_width = 0.6,
+						center = {
+							width = 0.5,
+							preview_cutoff = 1,
+						},
+					},
 				},
 			})
 
@@ -54,6 +62,7 @@ return {
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			vim.keymap.set("n", "<leader>bc", builtin.git_bcommits, { desc = "[B]uffer [C]ommits" })
 
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<leader>/", function()
