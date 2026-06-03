@@ -20,6 +20,7 @@ return {
 		-- Define your formatters
 		formatters_by_ft = {
 			html = { "prettier" },
+			css = { "prettier" },
 			sh = { "beautysh" },
 			lua = { "stylua" },
 			nunjucks = { "djlint" },

@@ -37,10 +37,9 @@ return {
 					layout_config = {
 						height = 0.95,
 						width = 0.95,
-						preview_width = 0.6,
-						center = {
-							width = 0.5,
-							preview_cutoff = 1,
+
+						horizontal = {
+							preview_width = 0.6,
 						},
 					},
 				},

@@ -38,6 +38,8 @@ return {
 						"graphql-language-service-cli",
 						"tailwindcss-language-server",
 						"bash-language-server",
+						"cssls",
+						"cssmodules_ls",
 					},
 				},
 			},
@@ -68,7 +70,7 @@ return {
 						"[W]orkspace [S]ymbols"
 					)
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-					map("<leader>fm", vim.lsp.buf.format, "[R]e[n]ame")
+					map("<leader>fm", vim.lsp.buf.format, "[F]or[m]at")
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 					map("K", vim.lsp.buf.hover, "Hover Documentation")
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
@@ -149,7 +151,7 @@ return {
 				},
 			})
 
-			vim.lsp.enable({ "eslint", "ts_ls", "lua_ls", "gopls", "graphql", "bashls" })
+			vim.lsp.enable({ "eslint", "ts_ls", "lua_ls", "gopls", "graphql", "bashls", "cssmodules_ls", "cssls" })
 		end,
 	},
 
