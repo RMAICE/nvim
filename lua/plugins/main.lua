@@ -14,7 +14,11 @@ return {
 	{ "tpope/vim-sleuth" },
 	{
 		"echasnovski/mini.files",
-		opts = {},
+		opts = {
+			options = {
+				use_as_default_explorer = false,
+			},
+		},
 		version = "*",
 		init = function()
 			vim.keymap.set("n", "<leader>pv", function()
@@ -42,5 +46,12 @@ return {
 		init = function()
 			require("xkbswitch").setup()
 		end,
+	},
+	{
+		"tpope/vim-fugitive",
+		cmd = { "Git", "G", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gread" },
+		keys = {
+			{ "<leader>gs", "<cmd>Git<cr>", desc = "Git status" },
+		},
 	},
 }

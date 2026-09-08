@@ -30,6 +30,18 @@ return {
 			vim.keymap.set("n", "<leader>jt", function()
 				require("neotest").run.run()
 			end)
+			vim.keymap.set("n", "<leader>jd", function()
+				local bin = vim.fs.find("node_modules/.bin/jest", {
+					upward = true,
+					path = vim.fn.expand("%:p:h"),
+					type = "file",
+				})[1]
+				require("neotest").run.run({
+					jestCommand = "node --no-lazy --inspect-brk "
+						.. bin
+						.. " --coverage=false --runInBand --colors --detectOpenHandles",
+				})
+			end)
 			vim.keymap.set("n", "<leader>jf", function()
 				require("neotest").run.run(vim.fn.expand("%"))
 			end)
